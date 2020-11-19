@@ -1,0 +1,5 @@
+(install
+ (files
+  (gridjs.production.min.js as js/gridjs.production.min.js))
+ (section share)
+ (package ocaml-gridjs))
