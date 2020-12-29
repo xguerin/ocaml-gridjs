@@ -61,165 +61,82 @@ module ClassName = struct
   let concat lst = Some (String.concat " " lst)
   let str s = Some (Js.string s)
 
-  module Header = struct
-    class type t =
-      object
-        method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method search : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-      end
-
-    let make ?container ?search () : t Js.t =
-      let ( >>= ) = Option.bind in
-      object%js
-        val container = Js.Optdef.option (container >>= concat >>= str)
-
-        val search = Js.Optdef.option (search >>= concat >>= str)
-      end
-  end
-
-  module Footer = struct
-    module Pagination = struct
-      module Buttons = struct
-        class type t =
-          object
-            method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-            method default : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-            method current : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-            method prev : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-            method next : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-          end
-
-        let make ?container ?default ?current ?prev ?next () : t Js.t =
-          let ( >>= ) = Option.bind in
-          object%js
-            val container = Js.Optdef.option (container >>= concat >>= str)
-
-            val default = Js.Optdef.option (default >>= concat >>= str)
-
-            val current = Js.Optdef.option (current >>= concat >>= str)
-
-            val prev = Js.Optdef.option (prev >>= concat >>= str)
-
-            val next = Js.Optdef.option (next >>= concat >>= str)
-          end
-      end
-
-      class type t =
-        object
-          method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-          method summary : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-          method buttons : Buttons.t Js.t Js.Optdef.t Js.readonly_prop
-        end
-
-      let make ?container ?summary ?buttons () : t Js.t =
-        let ( >>= ) = Option.bind in
-        object%js
-          val container = Js.Optdef.option (container >>= concat >>= str)
-
-          val summary = Js.Optdef.option (summary >>= concat >>= str)
-
-          val buttons = Js.Optdef.option buttons
-        end
-    end
-
-    class type t =
-      object
-        method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method pagination : Pagination.t Js.t Js.Optdef.t Js.readonly_prop
-      end
-
-    let make ?container ?pagination () : t Js.t =
-      let ( >>= ) = Option.bind in
-      object%js
-        val container = Js.Optdef.option (container >>= concat >>= str)
-
-        val pagination = Js.Optdef.option pagination
-      end
-  end
-
-  module Table = struct
-    module State = struct
-      class type t =
-        object
-          method loading : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-          method notfound : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-          method error : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-        end
-
-      let make ?loading ?notfound ?error () : t Js.t =
-        let ( >>= ) = Option.bind in
-        object%js
-          val loading = Js.Optdef.option (loading >>= concat >>= str)
-
-          val notfound = Js.Optdef.option (notfound >>= concat >>= str)
-
-          val error = Js.Optdef.option (error >>= concat >>= str)
-        end
-    end
-
-    class type t =
-      object
-        method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method sort : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method td : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method th : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method thead : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
-
-        method state : State.t Js.t Js.Optdef.t Js.readonly_prop
-      end
-
-    let make ?container ?sort ?td ?th ?thead ?state () : t Js.t =
-      let ( >>= ) = Option.bind in
-      object%js
-        val container = Js.Optdef.option (container >>= concat >>= str)
-
-        val sort = Js.Optdef.option (sort >>= concat >>= str)
-
-        val td = Js.Optdef.option (td >>= concat >>= str)
-
-        val th = Js.Optdef.option (th >>= concat >>= str)
-
-        val thead = Js.Optdef.option (thead >>= concat >>= str)
-
-        val state = Js.Optdef.option state
-      end
-  end
-
   class type t =
     object
+      method table : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method th : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method thead : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method tbody : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method td : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
       method container : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
 
-      method table : Table.t Js.t Js.Optdef.t Js.readonly_prop
+      method header : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
 
-      method header : Header.t Js.t Js.Optdef.t Js.readonly_prop
+      method footer : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
 
-      method footer : Footer.t Js.t Js.Optdef.t Js.readonly_prop
+      method search : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method sort : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method pagination : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method paginationSummary : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method paginationButton : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method paginationButtonNext :
+        Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method paginationButtonCurrent :
+        Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method paginationButtonPrev :
+        Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method loading : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method notfound : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
+
+      method error : Js.js_string Js.t Js.Optdef.t Js.readonly_prop
     end
 
-  let make ?container ?table ?header ?footer () : t Js.t =
+  let make ?table ?th ?thead ?tbody ?td ?header ?container ?footer ?search ?sort
+      ?pagination ?paginationSummary ?paginationButton ?paginationButtonNext
+      ?paginationButtonCurrent ?paginationButtonPrev ?loading ?notfound ?error
+      () : t Js.t =
     let ( >>= ) = Option.bind in
     object%js
+      val table = Js.Optdef.option (table >>= concat >>= str)
+
+      val th = Js.Optdef.option (th >>= concat >>= str)
+
+      val thead = Js.Optdef.option (thead >>= concat >>= str)
+
+      val tbody = Js.Optdef.option (tbody >>= concat >>= str)
+
+      val td = Js.Optdef.option (td >>= concat >>= str)
+
       val container = Js.Optdef.option (container >>= concat >>= str)
 
-      val table = Js.Optdef.option table
+      val header = Js.Optdef.option (header >>= concat >>= str)
 
-      val header = Js.Optdef.option header
+      val footer = Js.Optdef.option (footer >>= concat >>= str)
 
-      val footer = Js.Optdef.option footer
+      val search = Js.Optdef.option (search >>= concat >>= str)
+
+      val sort = Js.Optdef.option (sort >>= concat >>= str)
+
+      val pagination = Js.Optdef.option (pagination >>= concat >>= str)
+
+      val paginationSummary =
+        Js.Optdef.option (paginationSummary >>= concat >>= str)
+
+      val pagination = Js.Optdef.option (pagination >>= concat >>= str)
     end
 end
 
